@@ -1,0 +1,22 @@
+﻿<Window x:Class="NationalExamReporter.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
+        mc:Ignorable="d"
+        Title="MainWindowView" Height="450" Width="800">
+    <Grid>
+        <Grid Margin="20" AutomationProperties.HelpText="Choose year...">
+            <fa:ImageAwesome Name="LoadingIcon" Icon="Refresh" Spin="True" Height="48" Width="48" />
+            <TextBox x:Name="CurrentCsvFileTextBox" HorizontalAlignment="Left" Margin="143,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="371" FontSize="18" IsReadOnly="True" Height="30"/>
+            <Label Content="Current CSV File" HorizontalAlignment="Left" Margin="-5,89,0,0" VerticalAlignment="Top" FontSize="18"/>
+            <ComboBox x:Name="YearComboBox" HorizontalAlignment="Left" Margin="522,94,0,0" VerticalAlignment="Top" Width="108" Height="29" FontSize="18" Text="Choose year..." SelectionChanged="HandleYearChanged"/>
+            <Button x:Name="LoadCsvFromSelectedYearButton" Content="Load" HorizontalAlignment="Left" Margin="635,93,0,0" VerticalAlignment="Top" Height="30" Width="87" Click="LoadCsvFromSelectedYear" IsEnabled="False"/>
+        </Grid>
+        <DataGrid x:Name="StudentsDataGrid"  Margin="0,147,0,0"/>
+        <Button x:Name="ChooseCsvFileButton" Content="Add CSV" HorizontalAlignment="Left" Margin="440,37,0,0" VerticalAlignment="Top" Height="45" Width="140" FontSize="15" Click="AddCsv"/>
+        <Button x:Name="ShowAverageScoreByProvinceButton" Content="Average Score" HorizontalAlignment="Left" Margin="613,37,0,0" VerticalAlignment="Top" Height="45" Width="130" FontSize="15" Click="ShowAverageScoreByProvince"/>
+        <TextBlock HorizontalAlignment="Left" Margin="20,20,0,0" TextWrapping="Wrap" Text="National Exam Reporter" VerticalAlignment="Top" FontSize="30" Width="210" FontWeight="Bold"/>
+    </Grid>
+</Window>
