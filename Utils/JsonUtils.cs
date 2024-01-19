@@ -15,6 +15,13 @@ public class JsonUtils
         File.WriteAllText(jsonPath,json);
     }
 
+    public static void RemoveFromFileByIndex<T>(string jsonPath, int index)
+    {
+        List<T> objList = DeserializeObjectList<T>(jsonPath);
+        objList.RemoveAt(index);
+        var json = JsonConvert.SerializeObject(objList);
+        File.WriteAllText(jsonPath,json);
+    }
     public static List<T> DeserializeObjectList<T>(string path)
     {
         return JsonConvert.DeserializeObject<List<T>>(File.ReadAllText(@path));

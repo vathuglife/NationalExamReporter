@@ -2,6 +2,7 @@
 using NationalExamReporter.Models;
 using NationalExamReporter.Utils;
 using NationalExamReporter.ViewModels;
+using NationalExamReporter.Views.CsvFileByYearView;
 
 namespace NationalExamReporter.Views
 {
@@ -41,6 +42,19 @@ namespace NationalExamReporter.Views
                 addCsvFileByYearView.Show();
 
                 
+            }
+            catch (Exception error)
+            {
+                ShowError(error);
+            }
+        }
+
+        private void DeleteCsv(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                DeleteCsvFileByYearView deleteCsvFileByYearView = new DeleteCsvFileByYearView(this);
+                deleteCsvFileByYearView.Show();
             }
             catch (Exception error)
             {

@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 E:\FPT STUFFS\CHUYEN_NGANH\Semester 7\PRN221\Local_Backups\NationalExamReporter\NationalExamReporter\App.xaml
-3341352718
+4530233630
 
-27-858113127
-197-1652906212
-Views\AddCsvFileByYearView.xaml;Views\AverageScoreByProvinceView.xaml;Views\MainView.xaml;
+36-427187760
+224-1268338927
+Views\AverageScoreByProvinceView.xaml;Views\CsvFileByYearView\AddCsvFileByYearView.xaml;Views\CsvFileByYearView\DeleteCsvFileByYearView.xaml;Views\MainView.xaml;
 
 False
 
