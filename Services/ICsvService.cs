@@ -4,6 +4,6 @@ namespace NationalExamReporter.Services
 {
     public interface ICsvService
     {
-        List<Student> ReadCsv(string path);       
+        List<CsvStudent> ReadCsv(string path);       
     }
 }

@@ -1,14 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using NationalExamReporter.Entities;
+using NationalExamReporter.Utils;
 
-namespace NationalExamReporter.Entities
+namespace NationalExamReporter.UnitOfWork
 {
     public partial class NationalExamReporterDBContext : DbContext
     {
+        private IConfiguration? _config;
+
         public NationalExamReporterDBContext()
         {
+            InitializeObjects();
         }
 
         public NationalExamReporterDBContext(DbContextOptions<NationalExamReporterDBContext> options)
@@ -16,17 +19,20 @@ namespace NationalExamReporter.Entities
         {
         }
 
-        public virtual DbSet<SchoolYear> SchoolYears { get; set; }
-        public virtual DbSet<Score> Scores { get; set; }
-        public virtual DbSet<Student> Students { get; set; }
-        public virtual DbSet<Subject> Subjects { get; set; }
+        public virtual DbSet<SchoolYear>? SchoolYears { get; set; }
+        public virtual DbSet<Score>? Scores { get; set; }
+        public virtual DbSet<Student>? Students { get; set; }
+        public virtual DbSet<Subject>? Subjects { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("server =(local); database=NationalExamReporterDB;uid=sa;pwd=1234567890;TrustServerCertificate=True");
+                string connectionString = _config!
+                    .GetSection(
+                    "ConnectionStrings:NationalExamReporterDB")!
+                    .Value!;
+                optionsBuilder.UseSqlServer(connectionString);
             }
         }
 
@@ -47,7 +53,7 @@ namespace NationalExamReporter.Entities
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.Score1).HasColumnName("Score");
+                entity.Property(e => e.ScorePerSubject).HasColumnName("ScorePerSubject");
 
                 entity.HasOne(d => d.Student)
                     .WithMany(p => p.Scores)
@@ -96,5 +102,10 @@ namespace NationalExamReporter.Entities
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+        private void InitializeObjects()
+        {
+            _config = ConfigurationUtils.GetConfiguration();
+        }
     }
 }

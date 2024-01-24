@@ -61,8 +61,8 @@ namespace NationalExamReporter.Views.CsvFileByYearView {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/NationalExamReporter;V1.0.0.0;component/views/csvfilebyyearview/deletecsvfilebyy" +
-                    "earview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/NationalExamReporter;component/views/csvfilebyyearview/deletecsvfilebyyearview.x" +
+                    "aml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\Views\CsvFileByYearView\DeleteCsvFileByYearView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

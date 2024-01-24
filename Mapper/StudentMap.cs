@@ -3,7 +3,7 @@ using NationalExamReporter.Models;
 
 namespace NationalExamReporter.Mapper;
 
-public class StudentMap : ClassMap<Student>
+public class StudentMap : ClassMap<CsvStudent>
 {
     public StudentMap()
     {

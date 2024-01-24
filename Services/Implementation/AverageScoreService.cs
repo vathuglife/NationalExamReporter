@@ -5,7 +5,7 @@ namespace NationalExamReporter.Services.Implementation;
 public class AverageScoreService : IAverageScoreService
 {
     private List<AverageScoreByProvince>? _averageScoreByProvinces;
-    private List<Student>? _students;
+    private List<CsvStudent>? _students;
 
 
     public AverageScoreService()
@@ -14,7 +14,7 @@ public class AverageScoreService : IAverageScoreService
     }
 
 
-    public List<AverageScoreByProvince> GetAverageScoreByProvince(List<Student> students)
+    public List<AverageScoreByProvince> GetAverageScoreByProvince(List<CsvStudent> students)
     {
         _students = students;
         return GetAverageScoresGroupByProvinces();

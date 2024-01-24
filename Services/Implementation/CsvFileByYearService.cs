@@ -11,10 +11,11 @@ public class CsvFileByYearService:ICsvFileByYearService
 
     public CsvFileByYearService()
     {
-        InitializeObjects();
+        RefreshLoadedCsv();
     }
     public CsvFileByYearServiceResult AppendCsvFileByYearToLoadedCsv(CsvFileByYear csvFileByYear)
     {
+        RefreshLoadedCsv();
         if (IsYearDuplicated(csvFileByYear)) return CsvFileByYearServiceResult.DUPLICATED;
         JsonUtils.AppendToFile(ConfigPaths.LoadedCsv,csvFileByYear);
         return CsvFileByYearServiceResult.SUCCESS;
@@ -32,7 +33,7 @@ public class CsvFileByYearService:ICsvFileByYearService
             ConfigPaths.LoadedCsv);
     }
 
-    private void InitializeObjects()
+    private void RefreshLoadedCsv()
     {
         _loadedCsvList = JsonUtils.DeserializeObjectList<CsvFileByYear>(ConfigPaths.LoadedCsv);
     }

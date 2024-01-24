@@ -19,4 +19,6 @@ public class NationalExamConstants
         new KeyValuePair<string, int>("2022", 2022),
         new KeyValuePair<string, int>("2023", 2023)
     };
+
+    public static int NUMBER_OF_SUBJECTS = 9;
 }

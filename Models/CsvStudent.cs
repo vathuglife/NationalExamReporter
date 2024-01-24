@@ -1,6 +1,6 @@
 ﻿namespace NationalExamReporter.Models;
 
-public class Student
+public class CsvStudent
 {
     public string? StudentId { get; set; }
     public string? Province { get; set; }

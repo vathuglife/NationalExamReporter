@@ -1,0 +1,14 @@
+﻿<Window x:Class="NationalExamReporter.Views.InsertToDatabaseProgressView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NationalExamReporter.Views"
+        mc:Ignorable="d"
+        Title="InsertToDatabaseProgress" Height="100" Width="220">
+    <Grid Margin="0,33,0,0">
+        <ProgressBar x:Name="ProgressBar" Minimum="0" Maximum="100" Value="75" Margin="10,0,54,10" />
+        <Label Content="Current Progress" HorizontalAlignment="Left" Margin="10,-26,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="ProgressText" Content="0%" HorizontalAlignment="Left" Margin="171,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.016,0.39"/>
+    </Grid>
+</Window>
