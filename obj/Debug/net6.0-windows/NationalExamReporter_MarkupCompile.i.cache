@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 E:\FPT STUFFS\CHUYEN_NGANH\Semester 7\PRN221\Local_Backups\NationalExamReporter\NationalExamReporter\App.xaml
-5501244658
+6-1725448644
 
-572035670375
-238-875444638
-Views\AverageScoreByProvinceView.xaml;Views\CsvFileByYearView\AddCsvFileByYearView.xaml;Views\CsvFileByYearView\DeleteCsvFileByYearView.xaml;Views\InsertToDatabaseProgressView.xaml;Views\MainView.xaml;
+68-1269628703
+239655334635
+Views\AverageScoreByProvinceView.xaml;Views\CsvFileByYearView\AddCsvFileByYearView.xaml;Views\CsvFileByYearView\DeleteCsvFileByYearView.xaml;Views\InsertToDatabaseProgressView.xaml;Views\MainView.xaml;Views\ValedictoriansView.xaml;
 
-True
+False
 

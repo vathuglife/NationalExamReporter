@@ -1,4 +1,5 @@
-﻿using NationalExamReporter.Entities;
+﻿using System.ComponentModel;
+using NationalExamReporter.Entities;
 using NationalExamReporter.Enums;
 using NationalExamReporter.Models;
 using NationalExamReporter.Services.Parameters;
@@ -15,7 +16,11 @@ public class DataService:IDataService
     {
         InitializeObjects();
     }
-    public DataServiceResult InsertIntoDatabase(List<CsvStudent> csvStudents,int year)
+    
+
+    public event EventHandler<ProgressChangedEventArgs>? ProgressChanged;
+
+    public void InsertIntoDatabase(List<CsvStudent> csvStudents,int year)
     {
         _schoolYearService!.InsertSchoolYearIntoSchoolYearTable(year);
         _studentService!.InsertStudentsData(new StudentServiceParameters()
@@ -23,7 +28,6 @@ public class DataService:IDataService
             Year = year,
             CsvStudents = csvStudents
         });
-        return DataServiceResult.SUCCESS;
     }
     private void InitializeObjects()
     {

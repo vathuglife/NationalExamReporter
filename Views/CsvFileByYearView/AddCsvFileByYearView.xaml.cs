@@ -32,7 +32,7 @@ public partial class AddCsvFileByYearView : Window
         YearComboBox.Items.Clear();
         YearComboBox.SelectedValuePath = "Value";
         YearComboBox.DisplayMemberPath = "Key";
-        List<KeyValuePair<string, int>> yearKeyValues = NationalExamConstants.years;
+        List<KeyValuePair<string, int>> yearKeyValues = NationalExamConstants.Years;
         foreach (KeyValuePair<string, int> yearKeyValue in yearKeyValues)
         {
             YearComboBox.Items.Add(yearKeyValue);

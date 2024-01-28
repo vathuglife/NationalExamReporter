@@ -1,9 +1,11 @@
-﻿using NationalExamReporter.Models;
+﻿using System.ComponentModel;
+using NationalExamReporter.Models;
 using NationalExamReporter.Services.Parameters;
 
 namespace NationalExamReporter.Services;
 
 public interface IStudentService
 {
-    void InsertStudentsData(StudentServiceParameters parameters );
+    event ProgressChangedEventHandler ProgressChanged;
+    void InsertStudentsData(StudentServiceParameters parameters);
 }

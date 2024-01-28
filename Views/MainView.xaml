@@ -19,13 +19,16 @@
             <Button x:Name="LoadCsvFromSelectedYearButton" Content="Load" HorizontalAlignment="Left"
                     Margin="635,93,0,0" VerticalAlignment="Top" Height="30" Width="87" Click="LoadCsvFromSelectedYear"
                     IsEnabled="False" />
-            <Menu Margin="512,10,0,320" Height="48" Width="170">
+            <Menu Margin="410,10,0,320" Height="48" Width="270">
                 <MenuItem Header="Manage CSV" Height="44" Width="80">
                     <MenuItem Header="Add CSV" Click="AddCsv" />
                     <MenuItem Header="Delete CSV" Click="DeleteCsv" />
                 </MenuItem>
                 <MenuItem Header="Average Score" Height="44" Width="90">
                     <MenuItem Header="Calculate" Click="ShowAverageScoreByProvince" />
+                </MenuItem>
+                <MenuItem Header="Valedictorians" Height="44" Width="90">
+                    <MenuItem Header="Calculate" Click="ShowValedictorians" />
                 </MenuItem>
             </Menu>
         </Grid>

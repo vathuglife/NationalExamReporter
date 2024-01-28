@@ -9,6 +9,7 @@ public class SubjectRepository : ISubjectRepository
     public SubjectRepository()
     {
         InitializeObjects();
+       
     }
     public void InsertNewSubject(Subject subject)
     {
@@ -18,12 +19,16 @@ public class SubjectRepository : ISubjectRepository
 
     public int GetSubjectIdBySubjectName(string subjectName)
     {
-        Subject subject = _dbContext?.Subjects?.Where(subject => subject.Code == subjectName)!.First()!;
+        Subject subject = GetNewDbContextInstance()?.Subjects?.Where(subject => subject.Code == subjectName)!.First()!;
         return subject.Id;
     }
 
     private void InitializeObjects()
     {
-        _dbContext = new NationalExamReporterDBContext();
+        _dbContext = GetNewDbContextInstance();
+    }
+    private NationalExamReporterDBContext GetNewDbContextInstance()
+    {
+        return new NationalExamReporterDBContext();
     }
 }

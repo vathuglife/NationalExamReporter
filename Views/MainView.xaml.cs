@@ -1,15 +1,18 @@
 ﻿using System.Windows;
 using NationalExamReporter.Models;
+using NationalExamReporter.Services.Parameters;
 using NationalExamReporter.Utils;
 using NationalExamReporter.ViewModels;
+using NationalExamReporter.ViewModels.Parameters;
 using NationalExamReporter.Views.CsvFileByYearView;
+
 
 namespace NationalExamReporter.Views
 {
     public partial class MainView
     {
         private MainViewModel? _mainViewModel;
-        private List<CsvStudent>? _students;
+        private List<CsvStudent>? _csvStudents;
         private string? _csvPath;
         private CsvFileByYear? _selectedCsvFileByYear;
 
@@ -71,7 +74,7 @@ namespace NationalExamReporter.Views
                 }
 
                 AverageScoreByProvinceView averageScoreByProvinceWindow =
-                    new AverageScoreByProvinceView(_mainViewModel!.GetAverageScoreByProvince(_students!));
+                    new AverageScoreByProvinceView(_mainViewModel!.GetAverageScoreByProvince(_csvStudents!));
                 averageScoreByProvinceWindow.Show();
             }
             catch (Exception error)
@@ -100,11 +103,10 @@ namespace NationalExamReporter.Views
         {
             try
             {
-                // _students = _mainViewModel!.GetStudentsCsvData(_csvPath!);
-                // StudentsDataGrid.ItemsSource = _students;
-                // SetCsvPathToCsvFileTextBox();
-                //InsertCsvStudentDataIntoDatabase(_students);
-                ShowDatabaseInsertProgress();
+                _csvStudents = _mainViewModel!.GetStudentsCsvData(_csvPath!);
+                StudentsDataGrid.ItemsSource = _csvStudents;
+                SetCsvPathToCsvFileTextBox();
+                // ShowDatabaseInsertProgress();
             }
             catch (Exception error)
             {
@@ -112,16 +114,37 @@ namespace NationalExamReporter.Views
             }
         }
 
-        private void InsertCsvStudentDataIntoDatabase(List<CsvStudent> students)
+        private void ShowValedictorians(object sender, RoutedEventArgs e)
         {
-            int year = _selectedCsvFileByYear!.Year;
-            _mainViewModel!.InsertCsvStudentDataIntoDatabase(students,year);
+            try
+            {
+                if (!IsStudentDataLoaded())
+                {
+                    ShowCsvFileNotLoadedMessage();
+                    return;
+                }
+                
+                ValedictoriansView valedictoriansView = new ValedictoriansView(
+                    new ValedictoriansParameters
+                    {
+                        CsvStudents =_csvStudents! 
+                    });
+                valedictoriansView.Show();
+            }
+            catch (Exception error)
+            {
+                ShowError(error);
+            }
         }
 
         private void ShowDatabaseInsertProgress()
         {
-            InsertToDatabaseProgressView progressView = new InsertToDatabaseProgressView();
-            progressView.Show();
+            InsertToDatabaseProgressView progressView = new InsertToDatabaseProgressView(
+                new InsertStudentDataParameters()
+                {
+                    CsvStudents = _csvStudents!,
+                    Year = _selectedCsvFileByYear!.Year
+                });
         }
         private void HandleLoadButton()
         {
@@ -179,7 +202,7 @@ namespace NationalExamReporter.Views
         private bool IsStudentDataLoaded()
         {
             if (!String.IsNullOrEmpty(_csvPath)
-                && !ListUtils.IsListNullOrEmpty(_students!))
+                && !ListUtils.IsListNullOrEmpty(_csvStudents!))
                 return true;
             return false;
         }

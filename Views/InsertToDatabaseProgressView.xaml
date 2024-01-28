@@ -4,11 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NationalExamReporter.Views"
+        
         mc:Ignorable="d"
-        Title="InsertToDatabaseProgress" Height="100" Width="220">
+        Title="InsertToDatabaseProgress" Height="120" Width="280">
+
     <Grid Margin="0,33,0,0">
-        <ProgressBar x:Name="ProgressBar" Minimum="0" Maximum="100" Value="75" Margin="10,0,54,10" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="11*"/>
+            <ColumnDefinition Width="9*"/>
+        </Grid.ColumnDefinitions>
+
+        <ProgressBar Value="{Binding Progress}" Minimum="0" Maximum="100"  Margin="10,5,10,10" Grid.ColumnSpan="2" />
         <Label Content="Current Progress" HorizontalAlignment="Left" Margin="10,-26,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="ProgressText" Content="0%" HorizontalAlignment="Left" Margin="171,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.016,0.39"/>
+        <Label Content="{Binding ProgressTxt}"  HorizontalAlignment="Left" Margin="114,-26,0,0" VerticalAlignment="Top" Height="26" Width="156" Grid.ColumnSpan="2"/>
     </Grid>
 </Window>

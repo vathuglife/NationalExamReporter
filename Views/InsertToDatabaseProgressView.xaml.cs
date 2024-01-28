@@ -1,36 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using NationalExamReporter.Models;
+using NationalExamReporter.RelayCommands;
+using NationalExamReporter.Services;
+using NationalExamReporter.Services.Implementation;
+using NationalExamReporter.Services.Parameters;
+using NationalExamReporter.ViewModels;
+using NationalExamReporter.ViewModels.Parameters;
+
 
 namespace NationalExamReporter.Views
 {  
     public partial class InsertToDatabaseProgressView : Window
     {
-        public InsertToDatabaseProgressView()
+        public InsertToDatabaseProgressViewModel? _viewModel;
+        
+        public InsertToDatabaseProgressView(InsertStudentDataParameters parameters)
         {
             InitializeComponent();
-            SetDefaultWindowValues();
+            InstantiateViewModel(parameters);
+            StartInsertToDatabase();
+            this.DataContext = _viewModel;
+            this.Show();
         }
-
-        public void UpdateProgressText(string text)
+        
+        private void InstantiateViewModel(InsertStudentDataParameters parameters)
         {
+            _viewModel = new InsertToDatabaseProgressViewModel(parameters);
             
         }
 
-        private void SetDefaultWindowValues()
+        private void StartInsertToDatabase()
         {
-            ProgressText.Content = "0%";
-            ProgressBar.Value = 0;
+            InsertToDatabaseRC insertToDatabaseRc = new InsertToDatabaseRC(
+                _viewModel!.InsertStudentData
+                );
+            insertToDatabaseRc.Execute(null);      
         }
     }
 }

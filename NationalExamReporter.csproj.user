@@ -5,9 +5,15 @@
     <Compile Update="Views\CsvFileByYearView\DeleteCsvFileByYearView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\ValedictoriansView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\CsvFileByYearView\DeleteCsvFileByYearView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ValedictoriansView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "vS/jZJftI0S0eIX05slqUbok+dNzAUI0dd6n2QPCq9w82XnxhvxDEq4hlbxSux+w6Wk2aMzS6gBOAeJa/uU6Mw==",
+  "dgSpecHash": "4u3kskSMrsn8J3yKp9dB9332RJJ0P9uSGQ6hmI3FGw0Qwep9TKUPIt3m/IHGq/rYNiyCtCXvvtGC9FgPTqiQAQ==",
   "success": true,
   "projectFilePath": "E:\\FPT STUFFS\\CHUYEN_NGANH\\Semester 7\\PRN221\\Local_Backups\\NationalExamReporter\\NationalExamReporter\\NationalExamReporter.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\VietAnhOdyssey\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\VietAnhOdyssey\\.nuget\\packages\\azure.core\\1.6.0\\azure.core.1.6.0.nupkg.sha512",
     "C:\\Users\\VietAnhOdyssey\\.nuget\\packages\\azure.identity\\1.3.0\\azure.identity.1.3.0.nupkg.sha512",
     "C:\\Users\\VietAnhOdyssey\\.nuget\\packages\\csvhelper\\30.0.1\\csvhelper.30.0.1.nupkg.sha512",
@@ -11,7 +12,7 @@
     "C:\\Users\\VietAnhOdyssey\\.nuget\\packages\\fontawesome.wpf\\4.7.0.9\\fontawesome.wpf.4.7.0.9.nupkg.sha512",
     "C:\\Users\\VietAnhOdyssey\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\VietAnhOdyssey\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.0.0\\microsoft.bcl.asyncinterfaces.1.0.0.nupkg.sha512",
-    "C:\\Users\\VietAnhOdyssey\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
+    "C:\\Users\\VietAnhOdyssey\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\VietAnhOdyssey\\.nuget\\packages\\microsoft.data.sqlclient\\3.0.1\\microsoft.data.sqlclient.3.0.1.nupkg.sha512",
     "C:\\Users\\VietAnhOdyssey\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\3.0.0\\microsoft.data.sqlclient.sni.runtime.3.0.0.nupkg.sha512",
     "C:\\Users\\VietAnhOdyssey\\.nuget\\packages\\microsoft.data.sqlite.core\\6.0.0\\microsoft.data.sqlite.core.6.0.0.nupkg.sha512",

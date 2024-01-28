@@ -86,3 +86,6 @@ E:\FPT STUFFS\CHUYEN_NGANH\Semester 7\PRN221\Local_Backups\NationalExamReporter\
 E:\FPT STUFFS\CHUYEN_NGANH\Semester 7\PRN221\Local_Backups\NationalExamReporter\NationalExamReporter\bin\Debug\net6.0-windows\SQLitePCLRaw.core.dll
 E:\FPT STUFFS\CHUYEN_NGANH\Semester 7\PRN221\Local_Backups\NationalExamReporter\NationalExamReporter\obj\Debug\net6.0-windows\Views\InsertToDatabaseProgressView.g.cs
 E:\FPT STUFFS\CHUYEN_NGANH\Semester 7\PRN221\Local_Backups\NationalExamReporter\NationalExamReporter\obj\Debug\net6.0-windows\Views\InsertToDatabaseProgressView.baml
+E:\FPT STUFFS\CHUYEN_NGANH\Semester 7\PRN221\Local_Backups\NationalExamReporter\NationalExamReporter\obj\Debug\net6.0-windows\Views\ValedictoriansView.g.cs
+E:\FPT STUFFS\CHUYEN_NGANH\Semester 7\PRN221\Local_Backups\NationalExamReporter\NationalExamReporter\obj\Debug\net6.0-windows\Views\ValedictoriansView.baml
+E:\FPT STUFFS\CHUYEN_NGANH\Semester 7\PRN221\Local_Backups\NationalExamReporter\NationalExamReporter\bin\Debug\net6.0-windows\AutoMapper.dll
