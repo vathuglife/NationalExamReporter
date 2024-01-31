@@ -99,14 +99,13 @@ namespace NationalExamReporter.Views
             
         }
 
-        private void LoadCsvFromSelectedYear(object sender, RoutedEventArgs e)
+        private async void LoadCsvFromSelectedYear(object sender, RoutedEventArgs e)
         {
             try
             {
-                _csvStudents = _mainViewModel!.GetStudentsCsvData(_csvPath!);
-                StudentsDataGrid.ItemsSource = _csvStudents;
-                SetCsvPathToCsvFileTextBox();
-                // ShowDatabaseInsertProgress();
+                LoadCsvFromSelectedYearButton.IsEnabled = false;
+                _csvStudents = await _mainViewModel!.GetStudentsCsvData(_csvPath!);
+                await UpdateCsvStudentsToDataGrid();
             }
             catch (Exception error)
             {
@@ -114,21 +113,26 @@ namespace NationalExamReporter.Views
             }
         }
 
+        private async Task UpdateCsvStudentsToDataGrid()
+        {
+            await Dispatcher.InvokeAsync(() =>
+            {
+                LoadCsvFromSelectedYearButton.IsEnabled = true;
+                StudentsDataGrid.ItemsSource = _csvStudents;
+                SetCsvPathToCsvFileTextBox();
+                if (DoesUserWantToInsertStudentDataToDb())
+                {
+                    InsertStudentDataToDatabase();
+                }
+            });
+
+        }
+
         private void ShowValedictorians(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (!IsStudentDataLoaded())
-                {
-                    ShowCsvFileNotLoadedMessage();
-                    return;
-                }
-                
-                ValedictoriansView valedictoriansView = new ValedictoriansView(
-                    new ValedictoriansParameters
-                    {
-                        CsvStudents =_csvStudents! 
-                    });
+                ValedictoriansView valedictoriansView = new ValedictoriansView();
                 valedictoriansView.Show();
             }
             catch (Exception error)
@@ -137,7 +141,7 @@ namespace NationalExamReporter.Views
             }
         }
 
-        private void ShowDatabaseInsertProgress()
+        private void InsertStudentDataToDatabase()
         {
             InsertToDatabaseProgressView progressView = new InsertToDatabaseProgressView(
                 new InsertStudentDataParameters()
@@ -145,6 +149,7 @@ namespace NationalExamReporter.Views
                     CsvStudents = _csvStudents!,
                     Year = _selectedCsvFileByYear!.Year
                 });
+            progressView.Show();
         }
         private void HandleLoadButton()
         {
@@ -204,6 +209,18 @@ namespace NationalExamReporter.Views
             if (!String.IsNullOrEmpty(_csvPath)
                 && !ListUtils.IsListNullOrEmpty(_csvStudents!))
                 return true;
+            return false;
+        }
+
+        private bool DoesUserWantToInsertStudentDataToDb()
+        {
+            DefaultMessageBoxArguments defaultMessageBoxArguments =
+                new DefaultMessageBoxArguments(
+                    "Do you want to insert the student data to DB?", "Info",
+                    MessageBoxButton.OK, MessageBoxImage.Information
+                );
+            MessageBoxResult result = MessageBoxUtils.GetYesNoMessageBoxResult(defaultMessageBoxArguments);
+            if (result == MessageBoxResult.Yes) return true;
             return false;
         }
     }

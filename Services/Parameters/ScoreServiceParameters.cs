@@ -7,6 +7,4 @@ public class ScoreServiceParameters
 {
     public CsvStudent? CsvStudent;
     public Student? Student;
-    public int TotalScoreCount;
-
 }

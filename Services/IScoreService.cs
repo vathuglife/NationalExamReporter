@@ -1,8 +1,9 @@
-﻿using NationalExamReporter.Services.Parameters;
+﻿using NationalExamReporter.Entities;
+using NationalExamReporter.Services.Parameters;
 
 namespace NationalExamReporter.Services;
 
 public interface IScoreService
 {
-    void InsertStudentScoreToScoreTable(ScoreServiceParameters parameters);
+    List<Score> GetScoresPerStudent(ScoreServiceParameters parameters);
 }

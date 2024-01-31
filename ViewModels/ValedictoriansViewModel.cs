@@ -2,22 +2,28 @@
 using NationalExamReporter.Services;
 using NationalExamReporter.Services.Implementation;
 using NationalExamReporter.Services.Parameters;
+using NationalExamReporter.Views;
 
 namespace NationalExamReporter.ViewModels;
 
 public class ValedictoriansViewModel
 {
-    private IValedictoriansService _valedictoriansService;
+    private IValedictoriansService? _valedictoriansService;
 
     public ValedictoriansViewModel()
     {
         InitializeObjects();
     }
-    public List<ValedictoriansDetails> GetValedictoriansDetails(List<CsvStudent> _csvStudents)
+    public Task<ValedictoriansServiceReturnValue> GetValedictoriansDetails(int selectedYear)
     {
-        return _valedictoriansService.GetValedictoriansDetails(_csvStudents);
+        return Task.Run(()=> _valedictoriansService!.GetValedictoriansDetails(selectedYear));
+        
     }
 
+    public int[] GetYearComboBoxValues()
+    {
+        return _valedictoriansService.GetYears();
+    }
     private void InitializeObjects()
     {
         _valedictoriansService = new ValedictoriansService();

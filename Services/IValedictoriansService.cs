@@ -4,5 +4,7 @@ namespace NationalExamReporter.Services;
 
 public interface IValedictoriansService
 {
-    List<ValedictoriansDetails> GetValedictoriansDetails(List<CsvStudent> csvStudents);
+    ValedictoriansServiceReturnValue GetValedictoriansDetails(List<CsvStudent> csvStudents);
+    Task<ValedictoriansServiceReturnValue> GetValedictoriansDetails(int selectedYear);
+    int[] GetYears();
 }

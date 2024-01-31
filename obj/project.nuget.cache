@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "4u3kskSMrsn8J3yKp9dB9332RJJ0P9uSGQ6hmI3FGw0Qwep9TKUPIt3m/IHGq/rYNiyCtCXvvtGC9FgPTqiQAQ==",
+  "dgSpecHash": "19hjXHHFNshO0ZGcJzpZTnmEKP1lxpg5ggi78qKlDTn3zccTw1oA6Luydf61sAN6JbtQYQ5VvaSyfYcncxebyA==",
   "success": true,
   "projectFilePath": "E:\\FPT STUFFS\\CHUYEN_NGANH\\Semester 7\\PRN221\\Local_Backups\\NationalExamReporter\\NationalExamReporter\\NationalExamReporter.csproj",
   "expectedPackageFiles": [
@@ -8,7 +8,7 @@
     "C:\\Users\\VietAnhOdyssey\\.nuget\\packages\\azure.core\\1.6.0\\azure.core.1.6.0.nupkg.sha512",
     "C:\\Users\\VietAnhOdyssey\\.nuget\\packages\\azure.identity\\1.3.0\\azure.identity.1.3.0.nupkg.sha512",
     "C:\\Users\\VietAnhOdyssey\\.nuget\\packages\\csvhelper\\30.0.1\\csvhelper.30.0.1.nupkg.sha512",
-    "C:\\Users\\VietAnhOdyssey\\.nuget\\packages\\efcore.bulkextensions\\6.0.9\\efcore.bulkextensions.6.0.9.nupkg.sha512",
+    "C:\\Users\\VietAnhOdyssey\\.nuget\\packages\\efcore.bulkextensions\\6.0.0\\efcore.bulkextensions.6.0.0.nupkg.sha512",
     "C:\\Users\\VietAnhOdyssey\\.nuget\\packages\\fontawesome.wpf\\4.7.0.9\\fontawesome.wpf.4.7.0.9.nupkg.sha512",
     "C:\\Users\\VietAnhOdyssey\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\VietAnhOdyssey\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.0.0\\microsoft.bcl.asyncinterfaces.1.0.0.nupkg.sha512",
@@ -54,8 +54,6 @@
     "C:\\Users\\VietAnhOdyssey\\.nuget\\packages\\nettopologysuite\\2.0.0\\nettopologysuite.2.0.0.nupkg.sha512",
     "C:\\Users\\VietAnhOdyssey\\.nuget\\packages\\nettopologysuite.io.sqlserverbytes\\2.0.0\\nettopologysuite.io.sqlserverbytes.2.0.0.nupkg.sha512",
     "C:\\Users\\VietAnhOdyssey\\.nuget\\packages\\newtonsoft.json\\9.0.1\\newtonsoft.json.9.0.1.nupkg.sha512",
-    "C:\\Users\\VietAnhOdyssey\\.nuget\\packages\\npgsql\\6.0.0\\npgsql.6.0.0.nupkg.sha512",
-    "C:\\Users\\VietAnhOdyssey\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\6.0.0\\npgsql.entityframeworkcore.postgresql.6.0.0.nupkg.sha512",
     "C:\\Users\\VietAnhOdyssey\\.nuget\\packages\\sqlitepclraw.core\\2.0.6\\sqlitepclraw.core.2.0.6.nupkg.sha512",
     "C:\\Users\\VietAnhOdyssey\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Users\\VietAnhOdyssey\\.nuget\\packages\\system.collections\\4.0.11\\system.collections.4.0.11.nupkg.sha512",

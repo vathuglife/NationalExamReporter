@@ -11,26 +11,24 @@ namespace NationalExamReporter.Services.Implementation;
 
 public class ScoreService : IScoreService
 {
-    private IScoreRepository? _scoreRepository;
     private ISubjectRepository? _subjectRepository;
-    private List<Score>? _scoresPerBatch;
-    private Score[]? _scoreBuffer;
     private CsvStudent? _csvStudent;
     private Student? _student;
-    private int _scoreCount;
-    private int _totalScoreCount;
+    private Score[]? _scoreBuffer;
 
     public ScoreService()
     {
         InitializeObjects();
     }
 
-    public void InsertStudentScoreToScoreTable(ScoreServiceParameters parameters)
+    public List<Score> GetScoresPerStudent(ScoreServiceParameters parameters)
     {
         AssignValuesToPrivateMembers(parameters);
         List<KeyValuePair<string, double>> scoresPerCsvStudent = GetAllScoresOfCsvStudent();
-        Parallel.ForEach(scoresPerCsvStudent, (scorePerCsvStudent,state,index) =>
-        {
+        int maxScoreIndex = GetMaximumScoreIndex();
+        Parallel.For((long)0,maxScoreIndex,index=>
+            {
+                KeyValuePair<string, double> scorePerCsvStudent = scoresPerCsvStudent[(int)index];
             Score score = new Score()
             {
                 StudentId = _student!.Id,
@@ -38,30 +36,27 @@ public class ScoreService : IScoreService
                 ScorePerSubject = scorePerCsvStudent.Value
             };
             _scoreBuffer![index] = score;
-            _scoreCount++;
         }
         );
-        _scoresPerBatch!.AddRange(_scoreBuffer!);
-        Array.Clear(_scoreBuffer!);
-        if(IsBufferMaxed()) HandleBufferMaxed();  
-        
+
+        return _scoreBuffer!.ToList();
     }
 
+    private int GetMaximumScoreIndex()
+    {
+        return NationalExamConstants.NUMBER_OF_SUBJECTS;
+    }
     private void InitializeObjects()
     {
-        _scoreRepository = new ScoreRepository();
+        
         _subjectRepository = new SubjectRepository();
         _scoreBuffer = new Score[NationalExamConstants.NUMBER_OF_SUBJECTS];
-        _scoresPerBatch = new List<Score>();
-        _scoreCount = 0;
-        _totalScoreCount = 0;
     }
 
     private void AssignValuesToPrivateMembers(ScoreServiceParameters parameters)
     {
         _csvStudent = parameters.CsvStudent;
         _student = parameters.Student;
-        _totalScoreCount = parameters.TotalScoreCount;
     }
 
     private List<KeyValuePair<string, double>> GetAllScoresOfCsvStudent()
@@ -85,22 +80,22 @@ public class ScoreService : IScoreService
         return _subjectRepository!.GetSubjectIdBySubjectName(subjectName);
     }
 
-    private bool IsBufferMaxed()
-    {
-        if (_scoreCount % BufferSize.SCORE_BUFFER_SIZE == 0
-            || _scoreCount == _totalScoreCount)
-            return true;
-        return false;
-    }
-
-    private ConcurrentBag<Score> RemoveDuplicatesFromBag()
-    {
-        return new ConcurrentBag<Score>(_scoreBuffer!.
-            GroupBy(score => score.StudentId)
-            .Select(group => group.First()));
-    }
-    private void HandleBufferMaxed()
-    {
-        _scoreRepository!.BulkInsertScore(_scoresPerBatch);
-    }
+    // private bool IsBufferMaxed()
+    // {
+    //     if (_scoreCount % BufferSize.SCORE_BUFFER_SIZE == 0
+    //         || _scoreCount == _totalScoreCount)
+    //         return true;
+    //     return false;
+    // }
+    //
+    // private ConcurrentBag<Score> RemoveDuplicatesFromBag()
+    // {
+    //     return new ConcurrentBag<Score>(_scoreBuffer!.
+    //         GroupBy(score => score.StudentId)
+    //         .Select(group => group.First()));
+    // }
+    // private void HandleBufferMaxed()
+    // {
+    //     _scoreRepository!.BulkInsertScore(_scoresPerBatch);
+    // }
 }

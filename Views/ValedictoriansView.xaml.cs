@@ -14,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using NationalExamReporter.Models;
+using NationalExamReporter.Services;
+using NationalExamReporter.Services.Implementation;
 using NationalExamReporter.Services.Parameters;
 using NationalExamReporter.ViewModels;
 
@@ -21,32 +23,56 @@ namespace NationalExamReporter.Views
 {
     public partial class ValedictoriansView : Window
     {
-        private List<CsvStudent>? _csvStudents;
         private ValedictoriansViewModel? _viewModel;
-        private List<ValedictoriansDetails>? _valedictoriansDetails;
+        private int[] _years;
+        
+       
+        private ValedictoriansServiceReturnValue _returnValue;
+        private int _selectedYear;
 
-        public ValedictoriansView(ValedictoriansParameters parameters)
+        public ValedictoriansView()
         {
             InitializeComponent();
             InitializeObjects();
-            AssignValuesToPrivateMembers(parameters);
-            RefreshValedictorians();
         }
 
-        private void RefreshValedictorians()
-        {
-            _valedictoriansDetails = _viewModel!.GetValedictoriansDetails(_csvStudents!);
-            ValedictoriansDetailsDataGrid.ItemsSource = _valedictoriansDetails;
+        private async void RefreshValedictorians(object sender, RoutedEventArgs e)
+        {;
+            SearchBtn.IsEnabled = false;
+            _returnValue = await _viewModel!.GetValedictoriansDetails(_selectedYear);
+            await SetValedictorianValuesToDataGrid();
         }
 
         private void InitializeObjects()
         {
             _viewModel = new ValedictoriansViewModel();
+            _years = _viewModel.GetYearComboBoxValues();
+            YearComboBox.ItemsSource = _years;
+           
         }
 
-        private void AssignValuesToPrivateMembers(ValedictoriansParameters parameters)
+        private void HandleYearChanged(object sender, RoutedEventArgs e)
         {
-            _csvStudents = parameters.CsvStudents;
+            _selectedYear = Convert.ToInt32(YearComboBox.SelectedItem);
         }
+
+        private async Task SetValedictorianValuesToDataGrid()
+        {
+            await Dispatcher.InvokeAsync(() =>
+            {
+                ClearValedictorianValues();
+                ValedictoriansDetailsDataGrid.ItemsSource = _returnValue.ValedictorianDetails;
+                ValedictoriansBriefDataGrid.ItemsSource = _returnValue.ValedictoriansBriefs;
+                SearchBtn.IsEnabled = true;
+            });
+        }
+
+        private void ClearValedictorianValues()
+        {
+            ValedictoriansDetailsDataGrid.ItemsSource = null;
+            ValedictoriansBriefDataGrid.ItemsSource = null;
+        }
+
+      
     }
 }

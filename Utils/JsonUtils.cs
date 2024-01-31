@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace NationalExamReporter.Utils;
 
@@ -25,5 +26,10 @@ public class JsonUtils
     public static List<T> DeserializeObjectList<T>(string path)
     {
         return JsonConvert.DeserializeObject<List<T>>(File.ReadAllText(@path));
-    } 
+    }
+
+    public static JObject GetJsonDataAsObject(string path)
+    {
+        return (JObject)JsonConvert.DeserializeObject(File.ReadAllText(path));
+    }
 }

@@ -75,7 +75,7 @@
           }
         }
       },
-      "EFCore.BulkExtensions/6.0.9": {
+      "EFCore.BulkExtensions/6.0.0": {
         "type": "package",
         "dependencies": {
           "Microsoft.Data.SqlClient": "3.0.1",
@@ -83,7 +83,6 @@
           "Microsoft.EntityFrameworkCore.Relational": "6.0.0",
           "Microsoft.EntityFrameworkCore.Sqlite.Core": "6.0.0",
           "NetTopologySuite.IO.SqlServerBytes": "2.0.0",
-          "Npgsql.EntityFrameworkCore.PostgreSQL": "6.0.0",
           "System.Diagnostics.DiagnosticSource": "6.0.0"
         },
         "compile": {
@@ -905,37 +904,6 @@
           "lib/netstandard1.0/Newtonsoft.Json.dll": {
             "related": ".xml"
           }
-        }
-      },
-      "Npgsql/6.0.0": {
-        "type": "package",
-        "dependencies": {
-          "System.Runtime.CompilerServices.Unsafe": "6.0.0"
-        },
-        "compile": {
-          "lib/net6.0/Npgsql.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0/Npgsql.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "Npgsql.EntityFrameworkCore.PostgreSQL/6.0.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore": "6.0.0",
-          "Microsoft.EntityFrameworkCore.Abstractions": "6.0.0",
-          "Microsoft.EntityFrameworkCore.Relational": "6.0.0",
-          "Npgsql": "6.0.0"
-        },
-        "compile": {
-          "lib/net6.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll": {}
-        },
-        "runtime": {
-          "lib/net6.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll": {}
         }
       },
       "SQLitePCLRaw.core/2.0.6": {
@@ -1897,15 +1865,15 @@
         "lib/netstandard2.1/CsvHelper.xml"
       ]
     },
-    "EFCore.BulkExtensions/6.0.9": {
-      "sha512": "bGWy8xyXxIiqSP5NfLeLN29o4vqpY9tVSncXFg6PKlxoEXUFlUHBazZRm4PGHZTTTDNzzcL53MHiQm7oKyB/SA==",
+    "EFCore.BulkExtensions/6.0.0": {
+      "sha512": "YKoE2nv+3qhOrUBSMagsA9li+by2TncIvnqqjYTn+mdbEu8cfwgTqJnz+xFrXczKczUTbLrE3LikhPRmiXhRpw==",
       "type": "package",
-      "path": "efcore.bulkextensions/6.0.9",
+      "path": "efcore.bulkextensions/6.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "EFCoreBulk.png",
-        "efcore.bulkextensions.6.0.9.nupkg.sha512",
+        "efcore.bulkextensions.6.0.0.nupkg.sha512",
         "efcore.bulkextensions.nuspec",
         "lib/net6.0/EFCore.BulkExtensions.dll",
         "lib/net6.0/EFCore.BulkExtensions.pdb",
@@ -3037,43 +3005,6 @@
         "newtonsoft.json.9.0.1.nupkg.sha512",
         "newtonsoft.json.nuspec",
         "tools/install.ps1"
-      ]
-    },
-    "Npgsql/6.0.0": {
-      "sha512": "8m2AXZgX7b/VYL6D7aQ1M/hu7vQ+QvVHxaHelriupN2hZqEhcwJkPiICLBVSX/+xm+iN8mZVEUvD7ujmgpTgLw==",
-      "type": "package",
-      "path": "npgsql/6.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "README.md",
-        "lib/net5.0/Npgsql.dll",
-        "lib/net5.0/Npgsql.xml",
-        "lib/net6.0/Npgsql.dll",
-        "lib/net6.0/Npgsql.xml",
-        "lib/netcoreapp3.1/Npgsql.dll",
-        "lib/netcoreapp3.1/Npgsql.xml",
-        "lib/netstandard2.0/Npgsql.dll",
-        "lib/netstandard2.0/Npgsql.xml",
-        "lib/netstandard2.1/Npgsql.dll",
-        "lib/netstandard2.1/Npgsql.xml",
-        "npgsql.6.0.0.nupkg.sha512",
-        "npgsql.nuspec",
-        "postgresql.png"
-      ]
-    },
-    "Npgsql.EntityFrameworkCore.PostgreSQL/6.0.0": {
-      "sha512": "3laelDbRuri90YL+RAezn1VWEkrzaYkKq8OJ2vzAp6In9c8UqkaFMidIHyS9ipIerrv5Qo+mU55+8s5mrCiAvg==",
-      "type": "package",
-      "path": "npgsql.entityframeworkcore.postgresql/6.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "README.md",
-        "lib/net6.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll",
-        "npgsql.entityframeworkcore.postgresql.6.0.0.nupkg.sha512",
-        "npgsql.entityframeworkcore.postgresql.nuspec",
-        "postgresql.png"
       ]
     },
     "SQLitePCLRaw.core/2.0.6": {
@@ -5784,7 +5715,7 @@
     "net6.0-windows7.0": [
       "AutoMapper >= 12.0.1",
       "CsvHelper >= 30.0.1",
-      "EFCore.BulkExtensions >= 6.0.9",
+      "EFCore.BulkExtensions >= 6.0.0",
       "FontAwesome.WPF >= 4.7.0.9",
       "Microsoft.EntityFrameworkCore.Design >= 6.0.9",
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.9",
@@ -5843,7 +5774,7 @@
           },
           "EFCore.BulkExtensions": {
             "target": "Package",
-            "version": "[6.0.9, )"
+            "version": "[6.0.0, )"
           },
           "FontAwesome.WPF": {
             "target": "Package",

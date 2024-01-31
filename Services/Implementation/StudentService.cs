@@ -1,6 +1,4 @@
-﻿using System.Collections.Concurrent;
-using System.ComponentModel;
-using System.Diagnostics;
+﻿using System.ComponentModel;
 using NationalExamReporter.Constants;
 using NationalExamReporter.Entities;
 using NationalExamReporter.Models;
@@ -14,7 +12,8 @@ namespace NationalExamReporter.Services.Implementation;
 public class StudentService : IStudentService
 {
     public event ProgressChangedEventHandler? ProgressChanged;
-    private int _studentCount;
+    private int _currentIndex;
+    private int _schoolYearId;
     private int _totalCsvStudentCount;
     private int _progress;
     private ISchoolYearRepository? _schoolYearRepository;
@@ -23,6 +22,7 @@ public class StudentService : IStudentService
     private int _year;
     private List<CsvStudent>? _csvStudents;
     private Student[]? _studentsBuffer;
+    private int _bufferIndex;
     private BackgroundWorker? _backgroundWorker;
 
 
@@ -34,28 +34,38 @@ public class StudentService : IStudentService
     public void InsertStudentsData(StudentServiceParameters parameters)
     {
         AssignValuesToPrivateMembers(parameters);
-        int schoolYearId = _schoolYearRepository!.GetSchoolYearIdBySchoolYear(_year);
-
-        _backgroundWorker!.DoWork += (sender, e) =>
-        {
-            Parallel.For((long)0, 15000, index =>
-            {
-                CsvStudent csvStudent = _csvStudents[(int)index];
-                Student student = GetStudentFromCsvStudent(csvStudent, schoolYearId);
-                _studentsBuffer![index] = student;
-                _studentCount++;
-                _progress = GetInsertProgress();
-                _scoreService!.InsertStudentScoreToScoreTable(new ScoreServiceParameters()
-                {
-                    CsvStudent = csvStudent,
-                    Student = student,
-                    TotalScoreCount = _totalCsvStudentCount * NationalExamConstants.NUMBER_OF_SUBJECTS
-                });
-                if (IsBufferMaxed()) HandleBufferMaxed();
-            });
-        };
+        _schoolYearId = _schoolYearRepository!.GetSchoolYearIdBySchoolYear(_year);
+        _currentIndex = 0;
+        _bufferIndex = 0;
+        _backgroundWorker!.DoWork += (sender, e) => { InsertInMultipleThreads(); };
 
         _backgroundWorker!.RunWorkerAsync();
+    }
+
+    private void InsertInMultipleThreads()
+    {
+        while (_currentIndex != _totalCsvStudentCount)
+        {
+            int toIndex = GetToIndexByBufferSize();
+            Parallel.For((long)_currentIndex, toIndex, index =>
+            {
+                CsvStudent csvStudent = _csvStudents![(int)index];
+                Student student = GetStudentFromCsvStudent(csvStudent, _schoolYearId);
+                student.Scores =
+                    _scoreService!.GetScoresPerStudent(new ScoreServiceParameters()
+                    {
+                        CsvStudent = csvStudent,
+                        Student = student
+                    });
+                _studentsBuffer![_bufferIndex] = student;
+                _bufferIndex++;
+                _progress = GetInsertProgress();
+                ReportProgress();
+            });
+            HandleBufferMaxed();
+            UpdateCurrentIndex();
+            _bufferIndex = 0;
+        }
     }
 
     private Student GetStudentFromCsvStudent(CsvStudent csvStudent, int schoolYearId)
@@ -85,29 +95,38 @@ public class StudentService : IStudentService
         _totalCsvStudentCount = _csvStudents!.Count;
     }
 
-    private bool IsBufferMaxed()
-    {
-        if (_studentCount % BufferSize.STUDENT_BUFFER_SIZE == 0
-            || _studentCount == _totalCsvStudentCount)
-            return true;
-        return false;
-    }
-
     private int GetInsertProgress()
     {
-        return (int)((double)_studentCount / _totalCsvStudentCount * 100);
+        return (int)((double)GetCurrentStudentCount() / _totalCsvStudentCount * 100);
     }
 
-    private ConcurrentBag<Student> RemoveDuplicatesFromBag()
-    {
-        return new ConcurrentBag<Student>(_studentsBuffer!.GroupBy(student => student.Id)
-            .Select(group => group.First()));
-    }
 
     private void HandleBufferMaxed()
     {
-        RemoveDuplicatesFromBag();
         _studentRepository!.BulkInsertStudents(_studentsBuffer!.ToList()!);
         Array.Clear(_studentsBuffer!);
+    }
+
+
+    private int GetToIndexByBufferSize()
+    {
+        return _currentIndex + BufferSize.STUDENT_BUFFER_SIZE;
+    }
+
+    private void UpdateCurrentIndex()
+    {
+        _currentIndex = GetToIndexByBufferSize();
+    }
+
+    private int GetCurrentStudentCount()
+    {
+        int result = _currentIndex + 1;
+        return result;
+    }
+
+    private void ReportProgress()
+    {
+        string progressByString = $"Current Progress: ${_progress}";
+        ProgressChanged!(this, new ProgressChangedEventArgs(_progress, progressByString));
     }
 }

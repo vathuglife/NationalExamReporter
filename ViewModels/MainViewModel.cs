@@ -28,9 +28,9 @@ namespace NationalExamReporter.ViewModels
         {
             return JsonUtils.DeserializeObjectList<CsvFileByYear>(ConfigPaths.LoadedCsv);
         }
-        public List<CsvStudent> GetStudentsCsvData(string csvPath)
+        public Task<List<CsvStudent>> GetStudentsCsvData(string csvPath)
         {
-            return _csvService!.ReadCsv(csvPath);
+            return Task.Run(()=>_csvService!.ReadCsv(csvPath));
         }
 
         public List<AverageScoreByProvince> GetAverageScoreByProvince(List<CsvStudent> students)
