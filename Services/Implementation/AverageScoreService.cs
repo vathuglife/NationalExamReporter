@@ -6,6 +6,7 @@ public class AverageScoreService : IAverageScoreService
 {
     private List<AverageScoreByProvince>? _averageScoreByProvinces;
     private List<CsvStudent>? _students;
+    private List<CsvStudentVer2>? _studentsVer2;
 
 
     public AverageScoreService()
@@ -17,6 +18,11 @@ public class AverageScoreService : IAverageScoreService
     public List<AverageScoreByProvince> GetAverageScoreByProvince(List<CsvStudent> students)
     {
         _students = students;
+        return GetAverageScoresGroupByProvinces();
+    }
+    public List<AverageScoreByProvince> GetAverageScoreByProvinceVer2(List<CsvStudentVer2> students)
+    {
+        _studentsVer2 = students;
         return GetAverageScoresGroupByProvinces();
     }
 

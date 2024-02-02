@@ -1,10 +1,1 @@
-[
-  {
-    "Year": 2017,
-    "CsvPath": "E:\\FPT STUFFS\\CHUYEN_NGANH\\Semester 7\\PRN221\\Local_Backups\\NationalExamReporter\\CSV\\2017.csv"
-  },
-  {
-    "Year": 2018,
-    "CsvPath": "E:\\FPT STUFFS\\CHUYEN_NGANH\\Semester 7\\PRN221\\Local_Backups\\NationalExamReporter\\CSV\\VIETNAM NATIONAL HIGHSCHOOL EXAM SCORE 2018.csv"
-  }
-]
+[{"Year":2017,"CsvPath":"E:\\FPT STUFFS\\CHUYEN_NGANH\\Semester 7\\PRN221\\Local_Backups\\NationalExamReporter\\CSV\\2017-2021.csv"}]

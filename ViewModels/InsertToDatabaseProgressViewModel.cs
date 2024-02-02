@@ -41,7 +41,7 @@ public class InsertToDatabaseProgressViewModel:INotifyPropertyChanged
     private int _progress;
     private string? _progressTxt;
     private int _year;
-    private List<CsvStudent>? _csvStudents;
+    private List<CsvStudentVer2>? _csvStudents;
     private IStudentService? _studentService;
     private ISchoolYearService? _schoolYearService;
     
@@ -52,7 +52,7 @@ public class InsertToDatabaseProgressViewModel:INotifyPropertyChanged
     }
     public void InsertStudentData()
     {
-        _schoolYearService!.InsertSchoolYearIntoSchoolYearTable(_year);
+        // _schoolYearService!.InsertSchoolYearIntoSchoolYearTable(_csvStudents!);
         _studentService!.InsertStudentsData(new StudentServiceParameters()
         {
             Year = _year,

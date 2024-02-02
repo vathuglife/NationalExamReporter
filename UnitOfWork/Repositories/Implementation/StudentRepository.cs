@@ -17,19 +17,13 @@ public class StudentRepository :IStudentRepository
         _dbContext?.SaveChanges();
     }
 
-    public async void BulkInsertStudents(List<Student> students)
+    public void BulkInsertStudents(IEnumerable<Student> students)
     {
-        // await _dbContext.Students.AddRangeAsync(students);    
-        // await _dbContext.SaveChangesAsync();
-        // foreach (Student student in students)
-        // {
-        //     using(var context = new NationalExamReporterDBContext())
-        //     {
-        //         context?.Students!.Add(student);
-        //         context?.SaveChanges();
-        //     }
-        // }
-        _dbContext?.BulkInsertAsync(students);
+        using (_dbContext = new NationalExamReporterDBContext())
+        {
+            _dbContext?.AddRange(students);        
+            _dbContext?.SaveChanges();    
+        }
     }
 
     private void InitializeObjects()

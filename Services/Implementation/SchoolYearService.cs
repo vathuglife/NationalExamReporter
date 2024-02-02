@@ -1,4 +1,5 @@
 ﻿using NationalExamReporter.Entities;
+using NationalExamReporter.Models;
 using NationalExamReporter.UnitOfWork.Repositories;
 using NationalExamReporter.UnitOfWork.Repositories.Implementation;
 
@@ -12,9 +13,20 @@ public class SchoolYearService:ISchoolYearService
     {
         InitializeObjects();
     }
-    public void InsertSchoolYearIntoSchoolYearTable(int year)
+    public void InsertSchoolYearIntoSchoolYearTable(List<CsvStudentVer2> csvStudents)
     {
-        if (!IsYearExisted(year)) InsertYearIntoSchoolYearTable(year);
+        List<int> years = csvStudents.Select(csvStudent => csvStudent.Year).Distinct().ToList();
+        foreach (int year in years)
+        {
+            SchoolYear schoolYear = new SchoolYear()
+            {
+                Name = $"Exam_Year_{year}",
+                ExamYear = year,
+                Status = true,
+            };
+            _schoolYearRepository?.InsertNewSchoolYear(schoolYear);    
+        }
+        
     }
     private bool IsYearExisted(int year)
     {
@@ -23,16 +35,11 @@ public class SchoolYearService:ISchoolYearService
         return true;
     }
 
-    private void InsertYearIntoSchoolYearTable(int year)
-    {
-        SchoolYear schoolYear = new SchoolYear()
-        {
-            Name = $"Exam_Year_{year}",
-            ExamYear = year,
-            Status = true,
-        };
-        _schoolYearRepository?.InsertNewSchoolYear(schoolYear);
-    }
+    // private void InsertYearIntoSchoolYearTable(List<CsvStudentVer2> csvStudents)
+    // {
+    //    
+    //     _schoolYearRepository?.InsertNewSchoolYear(csvStudents);
+    // }
     private void InitializeObjects()
     {
         _schoolYearRepository = new SchoolYearRepository();

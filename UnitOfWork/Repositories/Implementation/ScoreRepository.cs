@@ -17,10 +17,14 @@ public class ScoreRepository:IScoreRepository,IDisposable
         _dbContext?.SaveChanges();
     }
 
-    public void BulkInsertScore(List<Score> scores)
+    public void BulkInsertScore(IEnumerable<Score> scores)
     {
-        _dbContext?.BulkInsert(scores);
-        _dbContext?.SaveChanges();
+        using (_dbContext = new NationalExamReporterDBContext())
+        {
+            _dbContext?.AddRange(scores);
+            _dbContext?.SaveChanges();    
+        }
+        
     }
     private void InitializeObjects()
     {

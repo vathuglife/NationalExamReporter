@@ -1,5 +1,4 @@
 ﻿using System.Collections.Concurrent;
-
 using NationalExamReporter.Constants;
 using NationalExamReporter.Entities;
 using NationalExamReporter.Models;
@@ -12,45 +11,58 @@ namespace NationalExamReporter.Services.Implementation;
 public class ScoreService : IScoreService
 {
     private ISubjectRepository? _subjectRepository;
+    private IScoreRepository? _scoreRepository;
     private CsvStudent? _csvStudent;
     private Student? _student;
-    private Score[]? _scoreBuffer;
+    private List<Score>? _scoreBuffer;
+    private int _bufferIndex;
+    private int _scoreIndex;
 
-    public ScoreService()
+    public ScoreService(int totalScoreCount)
     {
         InitializeObjects();
     }
 
-    public List<Score> GetScoresPerStudent(ScoreServiceParameters parameters)
+    public void InsertScoresPerStudent(ScoreServiceParameters parameters)
     {
         AssignValuesToPrivateMembers(parameters);
-        List<KeyValuePair<string, double>> scoresPerCsvStudent = GetAllScoresOfCsvStudent();
-        int maxScoreIndex = GetMaximumScoreIndex();
-        Parallel.For((long)0,maxScoreIndex,index=>
-            {
-                KeyValuePair<string, double> scorePerCsvStudent = scoresPerCsvStudent[(int)index];
+        List<KeyValuePair<string, double>> scoresPerCsvStudent
+            = GetAllScoresOfCsvStudent();
+        
+        // Parallel.For((long)0,
+        
+        //     parallelIndex =>
+        //     {
+        foreach (KeyValuePair<string, double> scorePerCsvStudent in scoresPerCsvStudent)
+        {
             Score score = new Score()
             {
                 StudentId = _student!.Id,
                 SubjectId = GetSubjectIdBySubjectName(scorePerCsvStudent.Key),
                 ScorePerSubject = scorePerCsvStudent.Value
             };
-            _scoreBuffer![index] = score;
-        }
-        );
-
-        return _scoreBuffer!.ToList();
+            _scoreBuffer.Add(score);
+            _bufferIndex++;
+        }        
+       
+            // });
+        
     }
 
-    private int GetMaximumScoreIndex()
+    private int GetToIndexByBufferSize()
     {
-        return NationalExamConstants.NUMBER_OF_SUBJECTS;
+        return _scoreIndex + BufferSize.SCORE_BUFFER_SIZE;
     }
+
     private void InitializeObjects()
     {
-        
         _subjectRepository = new SubjectRepository();
-        _scoreBuffer = new Score[NationalExamConstants.NUMBER_OF_SUBJECTS];
+        // _scoreBuffer = new Score[BufferSize.SCORE_BUFFER_SIZE];
+        _scoreBuffer = new List<Score>();
+        _scoreRepository = new ScoreRepository();
+
+        _scoreIndex = 0;
+        _bufferIndex = 0;
     }
 
     private void AssignValuesToPrivateMembers(ScoreServiceParameters parameters)
@@ -80,22 +92,15 @@ public class ScoreService : IScoreService
         return _subjectRepository!.GetSubjectIdBySubjectName(subjectName);
     }
 
-    // private bool IsBufferMaxed()
-    // {
-    //     if (_scoreCount % BufferSize.SCORE_BUFFER_SIZE == 0
-    //         || _scoreCount == _totalScoreCount)
-    //         return true;
-    //     return false;
-    // }
-    //
-    // private ConcurrentBag<Score> RemoveDuplicatesFromBag()
-    // {
-    //     return new ConcurrentBag<Score>(_scoreBuffer!.
-    //         GroupBy(score => score.StudentId)
-    //         .Select(group => group.First()));
-    // }
-    // private void HandleBufferMaxed()
-    // {
-    //     _scoreRepository!.BulkInsertScore(_scoresPerBatch);
-    // }
+    public void HandleBufferMaxed()
+    {
+        _scoreRepository!.BulkInsertScore(_scoreBuffer!.ToList()!);
+        _bufferIndex = 0;
+        _scoreBuffer!.Clear();
+    }
+
+    private void UpdateCurrentIndex()
+    {
+        _scoreIndex = GetToIndexByBufferSize();
+    }
 }

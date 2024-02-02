@@ -4,6 +4,6 @@ namespace NationalExamReporter.ViewModels.Parameters;
 
 public class InsertStudentDataParameters
 {
-    public List<CsvStudent> CsvStudents;
+    public List<CsvStudentVer2> CsvStudents;
     public int Year;
 }

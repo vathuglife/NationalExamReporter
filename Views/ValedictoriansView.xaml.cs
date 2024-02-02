@@ -29,17 +29,18 @@ namespace NationalExamReporter.Views
        
         private ValedictoriansServiceReturnValue _returnValue;
         private int _selectedYear;
-
-        public ValedictoriansView()
+        private List<CsvStudentVer2>? _csvStudents;
+        public ValedictoriansView(List<CsvStudentVer2> csvStudents)
         {
             InitializeComponent();
             InitializeObjects();
+            _csvStudents = csvStudents;
         }
 
         private async void RefreshValedictorians(object sender, RoutedEventArgs e)
         {;
             SearchBtn.IsEnabled = false;
-            _returnValue = await _viewModel!.GetValedictoriansDetails(_selectedYear);
+            _returnValue = await _viewModel!.GetValedictoriansDetails(GetValedictoriansParameters());
             await SetValedictorianValuesToDataGrid();
         }
 
@@ -49,6 +50,15 @@ namespace NationalExamReporter.Views
             _years = _viewModel.GetYearComboBoxValues();
             YearComboBox.ItemsSource = _years;
            
+        }
+
+        private ValedictoriansParameters GetValedictoriansParameters()
+        {
+            return new ValedictoriansParameters()
+            {   
+                year = _selectedYear,
+                CsvStudents = _csvStudents!
+            };
         }
 
         private void HandleYearChanged(object sender, RoutedEventArgs e)

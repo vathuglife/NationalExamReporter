@@ -3,15 +3,15 @@ using NationalExamReporter.Enums;
 using NationalExamReporter.Mappers;
 using NationalExamReporter.Models;
 using Microsoft.EntityFrameworkCore;
+using NationalExamReporter.Services.Parameters;
+
 namespace NationalExamReporter.Services.Implementation;
 
 public class ValedictoriansService : IValedictoriansService
 {
-    private List<CsvStudentVer2>? _tempCsvStudents;
     private List<CsvStudentVer2>? _csvStudents;
     private List<ValedictoriansDetails>? _valedictoriansDetails;
     private ValedictoriansBrief? _valedictoriansBrief;
-    private ICsvService _csvService;
 
     public ValedictoriansService()
     {
@@ -34,10 +34,10 @@ public class ValedictoriansService : IValedictoriansService
     }
 
     public async Task<ValedictoriansServiceReturnValue> GetValedictoriansDetails(
-        int selectedYear) {
+        ValedictoriansParameters parameters) {
         ResetValedictorianDetails();
-        SetYearToValedictorianBrief(selectedYear);
-        await InitializeCsvStudentListByYear(selectedYear);
+        SetYearToValedictorianBrief(parameters.year);
+        FilterResultByYear(parameters);
         await Task.Run(() =>
         {
             CalculateA00Valedictorian();
@@ -66,23 +66,12 @@ public class ValedictoriansService : IValedictoriansService
         return result;
     }
 
-  
-    private async Task InitializeCsvStudentListByYear(int selectedYear)
+    private void FilterResultByYear(ValedictoriansParameters parameters)
     {
-        
-        _csvStudents!.Clear();
-        await LoadCsvFile();
-        _csvStudents =
-            _tempCsvStudents.Where(csvStudent => csvStudent.Year == selectedYear).ToList();
-        
-    }
-    private async Task LoadCsvFile()
-    {
-        string path =
-            "E:\\FPT STUFFS\\CHUYEN_NGANH\\Semester 7\\PRN221\\Local_Backups\\NationalExamReporter\\CSV\\2017-2021.csv";
-
-        if (_tempCsvStudents.Count == 0)
-            _tempCsvStudents = await Task.Run(() => _csvService.ReadCsvVer2(path));
+        int year = parameters.year;
+        var csvStudentGroups = parameters.CsvStudents.GroupBy(student=>student.Year);
+        var groupByYear = csvStudentGroups.FirstOrDefault(group => group.Key == year);
+        _csvStudents = groupByYear!.ToList();
     }
     private void SetYearToValedictorianBrief(int year)
     {
@@ -199,9 +188,7 @@ public class ValedictoriansService : IValedictoriansService
     {
         _valedictoriansDetails = new List<ValedictoriansDetails>();
         _valedictoriansBrief = new ValedictoriansBrief();
-        _tempCsvStudents = new List<CsvStudentVer2>();
         _csvStudents = new List<CsvStudentVer2>();
-        _csvService = new CsvService();
     }
 
     private List<ValedictoriansBrief> GetValedictoriansBrief()

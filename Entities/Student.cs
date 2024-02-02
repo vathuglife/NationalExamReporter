@@ -11,9 +11,7 @@ namespace NationalExamReporter.Entities
         {
             Scores = new HashSet<Score>();
         }
-
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        
         public int Id { get; set; }
         public int SchoolYearId { get; set; }
         public string StudentCode { get; set; }

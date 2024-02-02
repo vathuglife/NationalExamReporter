@@ -14,9 +14,9 @@ public class ValedictoriansViewModel
     {
         InitializeObjects();
     }
-    public Task<ValedictoriansServiceReturnValue> GetValedictoriansDetails(int selectedYear)
+    public Task<ValedictoriansServiceReturnValue> GetValedictoriansDetails(ValedictoriansParameters parameters)
     {
-        return Task.Run(()=> _valedictoriansService!.GetValedictoriansDetails(selectedYear));
+        return Task.Run(()=> _valedictoriansService!.GetValedictoriansDetails(parameters));
         
     }
 

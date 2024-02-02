@@ -11,12 +11,9 @@ namespace NationalExamReporter.Entities
         {
             Scores = new HashSet<Score>();
         }
-
-        [Key]
+        
         public int Id { get; set; }
-        [Column ("Code")]
         public string Code { get; set; }
-        [Column ("Name")]
         public string Name { get; set; }
 
         public virtual ICollection<Score> Scores { get; set; }

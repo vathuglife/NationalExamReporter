@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="DeleteCsvFileByYearView" Height="400" Width="600">
     <Grid>
-        <DataGrid x:Name="LoadedCsvDataGrid"  Margin="10,94,10,0"/>
+        <DataGrid x:Name="LoadedCsvDataGrid"  Margin="10,94,10,0" CanUserAddRows="false"/>
         <Label Content="Delete a CSV" HorizontalAlignment="Left" Margin="10,16,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
         <Label Content="Choose one of the CSVs below, then click delete." HorizontalAlignment="Left" Margin="10,55,0,0" VerticalAlignment="Top"/>
         <Grid.ContextMenu>

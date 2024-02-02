@@ -8,7 +8,8 @@
         Title="MainWindowView" Height="450" Width="800">
     <Grid>
         <Grid Margin="20" AutomationProperties.HelpText="Choose year...">
-            <fa:ImageAwesome Name="LoadingIcon" Icon="Refresh" Spin="True" Height="48" Width="48" />
+            
+            
             <TextBox x:Name="CurrentCsvFileTextBox" HorizontalAlignment="Left" Margin="143,93,0,0" TextWrapping="Wrap"
                      VerticalAlignment="Top" Width="371" FontSize="18" IsReadOnly="True" Height="30" />
             <Label Content="Current CSV File" HorizontalAlignment="Left" Margin="-5,89,0,0" VerticalAlignment="Top"
@@ -32,7 +33,10 @@
                 </MenuItem>
             </Menu>
         </Grid>
-        <DataGrid x:Name="StudentsDataGrid" Margin="0,147,0,0" />
+        <DataGrid x:Name="StudentsDataGrid" Margin="0,147,0,0" CanUserAddRows="false"/>
+        <TextBlock Margin="380,261,380,125">
+             <fa:ImageAwesome Name="LoadingIcon" Icon="Refresh" Spin="True" Height="48" Width="48" Visibility="Hidden"/>
+        </TextBlock>
         <TextBlock HorizontalAlignment="Left" Margin="20,20,0,0" TextWrapping="Wrap" Text="National Exam Reporter"
                    VerticalAlignment="Top" FontSize="30" Width="210" FontWeight="Bold" />
     </Grid>

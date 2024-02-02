@@ -4,5 +4,6 @@ namespace NationalExamReporter.Services.Parameters;
 
 public class ValedictoriansParameters
 {
-    public List<CsvStudent> CsvStudents;
+    public List<CsvStudentVer2> CsvStudents { get; set; }
+    public int year { get; set; }
 }

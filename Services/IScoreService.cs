@@ -5,5 +5,6 @@ namespace NationalExamReporter.Services;
 
 public interface IScoreService
 {
-    List<Score> GetScoresPerStudent(ScoreServiceParameters parameters);
+    void InsertScoresPerStudent(ScoreServiceParameters parameters);
+    void HandleBufferMaxed();
 }

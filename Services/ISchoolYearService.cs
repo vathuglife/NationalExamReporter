@@ -1,6 +1,8 @@
-﻿namespace NationalExamReporter.Services;
+﻿using NationalExamReporter.Models;
+
+namespace NationalExamReporter.Services;
 
 public interface ISchoolYearService
 {
-    void InsertSchoolYearIntoSchoolYearTable(int year);
+    void InsertSchoolYearIntoSchoolYearTable(List<CsvStudentVer2> csvStudents);
 }
